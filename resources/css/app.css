@@ -1,0 +1,16 @@
+body, html {
+    background-color: #CCC;
+    height: 100%;
+  }
+  
+  div {
+    background-color: #FFF;
+  }
+  
+  .container {
+    height: 100%;
+  }
+  
+  .droppable {
+    min-height: 150px;
+  }
