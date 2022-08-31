@@ -54,6 +54,35 @@ class TaskController extends Controller
         return redirect()->route('home');
     }
 
+
+
+    public function setPriority(Request $request)
+    {
+        //
+        // dd($request->all());
+        $update = $request->update;
+        $positions = $request->positions;
+        //dd( $positions);
+
+        if (isset($update)) {
+            foreach ($positions as $position) {
+                $index = $position[0];
+                $newPosition = $position[1];
+
+                $task = Tasks::find($index);
+
+                $task->priority = $newPosition;
+                $task->save();
+            }
+
+            // return redirect()->route('home');
+        }
+
+
+
+        return redirect()->route('home');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -83,9 +112,22 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        // $projectId = $request->project_id;
+        $taskNameOld = $request->task_name_old;
+        $taskName = $request->task_name;
+
+        // dd($taskNameOld);
+
+        $taskId = Tasks::select('id')->where('task_name', $taskNameOld)->first();
+        $id = $taskId->id;
+        $task = Tasks::find($id);
+        $task->task_name = $taskName;
+        $task->save();
+
+        return redirect()->route('home');
     }
 
     /**
@@ -94,8 +136,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
         //
+        // dd($request->all());
+        $id = $request->id;
+
+        Tasks::where('id', $id)->delete();
+
+        return true;
     }
 }

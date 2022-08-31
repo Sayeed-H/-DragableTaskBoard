@@ -17,10 +17,10 @@ class ProjectController extends Controller
     {
         //
         $data['projects'] = Projects::all()->toArray();
-        $data['tasks'] = Tasks::all()->toArray();
-        
+        $data['tasks'] = Tasks::orderBy('priority')->get()->toArray();
 
-     
+
+
         return view('welcome', $data);
     }
 
@@ -52,8 +52,7 @@ class ProjectController extends Controller
         $newProject->project_name = $request->name;
         $newProject->save();
         return redirect()->route('home')
-                         ->with('success','Project has been created successfully.');
-
+            ->with('success', 'Project has been created successfully.');
     }
 
     /**

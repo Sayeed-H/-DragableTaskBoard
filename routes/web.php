@@ -19,15 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProjectController::class, 'Index'])->name('home');
 
-// Route::resource('projects', ProjectController::class);
-// Route::resource('tasks', '\App\Http\Controllers\TaskController');
-
-
 
 Route::post('project/store', [ProjectController::class, 'store'])->name('project.store');
 
 
 Route::post('task/store', [TaskController::class, 'store'])->name('task.store');
+Route::post('task/update', [TaskController::class, 'update'])->name('task.update');
+Route::post('task/delete', [TaskController::class, 'delete'])->name('task.delete');
+
+
+
+Route::post('task/setPriority', [TaskController::class, 'setPriority'])->name('task.setPriority');
+
 
 
 
